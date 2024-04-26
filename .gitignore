@@ -1,1 +1,4 @@
 *vscod*
+*.o
+*a.out
+ft_ssl
