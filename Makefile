@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgarault <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fgarault <fgarault@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/04/07 17:50:20 by fgarault          #+#    #+#              #
-#    Updated: 2020/12/21 19:05:23 by fgarault         ###   ########.fr        #
+#    Created: 2024/04/27 08:10:12 by fgarault          #+#    #+#              #
+#    Updated: 2024/04/27 08:40:57 by fgarault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,37 +23,38 @@ BLUE	=	\033[1;36m
 WHITE	=	\033[1;39m
 RESET	=	\033[0m
 
-MLIBFT	= make -C libft
-
-# INCLUDE	=	ft_ssl.h
-DIR		=	srcs
-SRC	=	ft_ssl.c
+LIBDIR	=	libft
+LIBFT	= 	$(LIBDIR)/libft.a
+DIR		=	src
+SRC		=	ft_ssl.c
 
 OBJDIR	=	obj
-OBJS	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+OBJ	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIBFT)
+$(NAME) : $(LIBFT) $(OBJ) 
 	$(CC) $(CFLAGS) $^ -o $(NAME) 
 
-$(OBJ) : | $(OBJDIR)
+$(LIBFT) :
+	@make -C $(LIBDIR)
 
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(INLCUDE)
+$(OBJ) : $(OBJDIR)
+
+$(OBJDIR)/%.o: $(DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 $(OBJDIR) :
-	mkdir $@
-
-$(LIBFT) :
-	make -C $(LIBDIR)
+	@mkdir $@
 
 clean :
-	rm -rf $(OBJDIR)
-	make clean -C $(LIBDIR)
+	@rm -rf $(OBJDIR)
+	@rm -rf $(LIBDIR)/$(OBJDIR)
 
 fclean : clean
-	rm $(NAME)
-	make fclean -C $(LIBDIR)
+	@rm $(NAME)
+	@rm $(LIBFT)
 
 re : fclean all
+
+.PHONY: clean fclean re all

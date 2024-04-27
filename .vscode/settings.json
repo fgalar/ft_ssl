@@ -1,5 +1,7 @@
 {
     "files.associations": {
         "ft_printf.h": "c"
-    }
+    },
+    "42header.username": "fgarault",
+    "42header.email": "fgarault@42.fr",
 }
