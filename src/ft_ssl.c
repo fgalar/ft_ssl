@@ -1,6 +1,16 @@
-// #include <unistd.h>
-// #include "../libft/ft_printf/ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ssl.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgarault <fgarault@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/27 08:49:37 by fgarault          #+#    #+#             */
+/*   Updated: 2024/04/28 17:06:11 by fgarault         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_ssl.h"
 // void ft_gets(char *buffer, int max_len, int *stream)
 // {
 //     int ret = read(STDIN_FILENO, buffer, max_len - 1);
@@ -12,28 +22,24 @@
 //     }
 // }
 
-// int main(int ac, char **av)
-// {
+int main(int ac, char **av)
+{
+    (void)ac;
+    (void)av;
+    // get_arguments(av);
+    md5(ft_atoi(av[1]));
 
-//     ft_printf("ac : %d\n", ac);
+    // printf("%d", ft_atoi("45"));
 
-//     // printf("%d", ft_atoi("45"));
+    // while (*++av)
+    // {
+    //     ft_printf("av : %s\n", *av);
+    // }
 
-//     // while (*++av)
-//     // {
-//     //     ft_printf("av : %s\n", *av);
-//     // }
+    // // --- get stdin
+    // char buffer[100];
 
-//     // // --- get stdin
-//     // char buffer[100];
+    // ft_gets(buffer, sizeof(buffer), stdin);
 
-//     // ft_gets(buffer, sizeof(buffer), stdin);
-
-//     return (0);
-// }
-#include "../libft/ft_printf/ft_printf.h"
-
-int main() {
-    ft_printf("Hello World");
     return (0);
 }
