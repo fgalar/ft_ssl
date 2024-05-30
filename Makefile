@@ -6,7 +6,7 @@
 #    By: fgarault <fgarault@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 08:10:12 by fgarault          #+#    #+#              #
-#    Updated: 2024/04/27 19:01:02 by fgarault         ###   ########.fr        #
+#    Updated: 2024/05/30 16:18:47 by fgarault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ RESET	=	\033[0m
 LIBDIR	=	libft
 LIBFT	= 	$(LIBDIR)/libft.a
 DIR		=	src
-SRC		=	ft_ssl.c parsing.c md5.c
+SRC		=	ft_ssl.c parsing.c md5.c sha256.c debug.c
 
 OBJDIR	=	obj
 OBJ	=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))

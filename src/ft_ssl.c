@@ -6,7 +6,7 @@
 /*   By: fgarault <fgarault@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 08:49:37 by fgarault          #+#    #+#             */
-/*   Updated: 2024/04/28 17:06:11 by fgarault         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:03:26 by fgarault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int main(int ac, char **av)
     (void)ac;
     (void)av;
     // get_arguments(av);
-    md5(ft_atoi(av[1]));
+    // md5(ft_atoi(av[1]));
+    sha_256();
 
     // printf("%d", ft_atoi("45"));
 

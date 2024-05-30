@@ -6,12 +6,17 @@
 /*   By: fgarault <fgarault@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:01:27 by fgarault          #+#    #+#             */
-/*   Updated: 2024/05/12 20:37:43 by fgarault         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:16:27 by fgarault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include <stdio.h>
+
+# define H0	0x67452301
+# define H1	0xEFCDAB89
+# define H2	0x98BADCFE
+# define H3	0x10325476
 
 void print_bits(size_t const size, void const * const ptr)
 {
@@ -29,9 +34,9 @@ void print_bits(size_t const size, void const * const ptr)
     puts("");
 }
 
-uint32_t	leftrotate(uint32_t x, uint32_t n)
+uint32_t	leftrotate(uint32_t value, uint32_t bits)
 {
-	return (x << n) | (x >> (32 - n));
+	return (value << bits) | (value >> (32 - bits));
 }
 
 static void padding(t_padding *data, char *msg, size_t len)
@@ -46,12 +51,11 @@ static void padding(t_padding *data, char *msg, size_t len)
         return ;
     ft_memcpy(data->msg, msg, len);
     data->msg[len] |= 1 << 7;
-    ft_memcpy(data->msg + data->total - 1, &data->bits, 8);
-
+    ft_memcpy(data->msg + data->total - 8, &data->bits, 8);
     print_bits(data->total, data->msg);
 }
 
-static void    calc_md5(t_padding *data, t_md5 *hash)
+static void    calc_md5(t_padding *data, t_hash *hash)
 {
     int i;
     uint32_t f;
@@ -65,7 +69,7 @@ static void    calc_md5(t_padding *data, t_md5 *hash)
     {
         if (i >= 0 && i <= 15)
         {
-            f = (hash->b & hash->c) |  ((~hash->b) & hash->d);
+            f = (hash->b & hash->c) | ((~hash->b) & hash->d);
             g = i;
         } else if (i >= 16 && i <= 31)
         {
@@ -93,7 +97,7 @@ static void    calc_md5(t_padding *data, t_md5 *hash)
 void md5(int len)
 {
     t_padding   data;
-    t_md5       hash;
+    t_hash       hash;
     uint32_t h0, h1, h2, h3; 
 
     h0 = H0;
@@ -102,9 +106,9 @@ void md5(int len)
     h3 = H3;
 
     (void)len;
-    char *str = "They are deterministic";
+    char *str = "They are deterministic\n";
     padding(&data, str, ft_strlen(str));
-    hash = (t_md5){.a = H0, .b = H1, .c = H2, .d = H3};
+    hash = (t_hash){.a = H0, .b = H1, .c = H2, .d = H3};
     while (data.offset < data.len)
     {
         hash.a = h0;
@@ -118,8 +122,8 @@ void md5(int len)
         h3 += hash.d;
         data.offset += 64;
     }
-        printf("hash a: %x\n", h0);
-        printf("hash b: %x\n", h1);
-        printf("hash c: %x\n", h2);
-        printf("hash d: %x\n", h3);
+    printf("hash a: %x\n", h0);
+    printf("hash b: %x\n", h1);
+    printf("hash c: %x\n", h2);
+    printf("hash d: %x\n", h3);
 }
